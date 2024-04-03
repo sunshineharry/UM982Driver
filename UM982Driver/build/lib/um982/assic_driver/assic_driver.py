@@ -82,14 +82,19 @@ class UM982Driver:
         all_msg = msg
         split_msg = all_msg.strip().split("\r\n")
         for msg in split_msg:
-            if msg.startswith("#PVTSLNA") and check_crc(msg):
-                self.__PVTSLN_solver(msg)
-            elif msg.startswith("$GNHPR") and check_checksum(msg):
-                self.__GNHPR_solver(msg)
-            elif msg.startswith("$KSXT") and check_checksum(msg):
-                self.__KSXT_solver(msg)
-            elif msg.startswith("#BESTNAVA") and check_crc(msg):
-                self.__BESTNAV_solver(msg)
+            try:
+                if msg.startswith("#PVTSLNA") and check_crc(msg):
+                    self.__PVTSLN_solver(msg)
+                elif msg.startswith("$GNHPR") and check_checksum(msg):
+                    self.__GNHPR_solver(msg)
+                elif msg.startswith("$KSXT") and check_checksum(msg):
+                    self.__KSXT_solver(msg)
+                elif msg.startswith("#BESTNAVA") and check_crc(msg):
+                    self.__BESTNAV_solver(msg)
+            except:
+                print("Warnning: Illegal Sentance.")
+            finally:
+                pass
 
 
     def decode(self, msg:str):

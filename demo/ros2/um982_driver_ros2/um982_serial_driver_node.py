@@ -30,9 +30,7 @@ class UM982SerialDriverNode(threading.Thread, Node):
         if ( len(all_msg) == 0 ):
             return False
         else:
-            self.solver.parse(all_msg)
-            self.solver.utm_trans()
-            self.solver.std_trans()
+            self.solver.decode(all_msg)
             return True
 
 
