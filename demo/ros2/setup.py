@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'um982_driver_ros2'
+package_name = 'um982_driver'
 
 setup(
     name=package_name,

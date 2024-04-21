@@ -2,7 +2,7 @@ from setuptools import setup
 from setuptools import find_packages
 
 PKG_NAME    = 'um982-driver'
-VERSION     = '0.1.3'
+VERSION     = '0.1.4'
 DESCRIPTION = """
 - Driver for UNICORECOMM UM982/UM980 GPS
 - Support NMEA, extended NMEA Instruction Set: `PVTSLN`, `KSXT`, `GNHPR`, `BESTNAV`
