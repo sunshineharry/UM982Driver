@@ -1,12 +1,13 @@
 Metadata-Version: 2.1
 Name: um982-driver
-Version: 0.1.4
-Summary: - Driver for UNICORECOMM UM982/UM980 GPS
+Version: 0.2.1
+Summary:  - Driver for UNICORECOMM UM982/UM980 GPS - Support NMEA, extended NMEA Instruction Set: `PVTSLN`, `GNHPR`, `BESTNAV` - Support ASSIC Instruction Set Only now - Get as much location information as possible ( more than stantad NMEA sentence ) 
+Home-page: UNKNOWN
+License: UNKNOWN
 Project-URL: Documentation, https://github.com/sunshineharry/UM982Driver/
 Project-URL: Code, https://github.com/sunshineharry/UM982Driver/
+Platform: UNKNOWN
 Description-Content-Type: text/markdown
-Requires-Dist: numpy
-Requires-Dist: pyproj
 
 # Driver for UM982 / UM980
 
@@ -19,6 +20,8 @@ Requires-Dist: pyproj
 
 - [English](readme.md) ( English version will be coming soom )
 - [简体中文](appendix/readme_zh.md)
+
+
 
 
 
