@@ -1,40 +1,42 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+# # Byte-compiled / optimized / DLL files
+# __pycache__/
+# *.py[cod]
+# *$py.class
 
-# C extensions
-*.so
+# # C extensions
+# *.so
 
-# Distribution / packaging
-.Python
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+# # Distribution / packaging
+# .Python
+# env/
+# venv/
+# ENV/
+# env.bak/
+# venv.bak/
+# build/
+# develop-eggs/
+# dist/
+# downloads/
+# eggs/
+# .eggs/
+# lib/
+# lib64/
+# parts/
+# sdist/
+# var/
+# wheels/
+# share/python-wheels/
+# *.egg-info/
+# .installed.cfg
+# *.egg
+# MANIFEST
 
-# Ignored build directories
-build/
-dist/
+# # Ignored build directories
+# build/
+# dist/
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds t
+
+# .vscode
+# # PyInstaller
+# #  Usually these files are written by a python script from a template
+# #  before PyInstaller builds t
