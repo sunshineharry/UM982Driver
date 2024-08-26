@@ -13,14 +13,14 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='hankunjiang',
+    maintainer='root',
     maintainer_email='hankunjiang@outlook.com',
     description='TODO: Package description',
-    license='MIT',
+    license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'um982_serial_driver_node = um982_driver_ros2.um982_serial_driver_node:main'
+            "um982_driver_node = um982_driver.um982_driver:main",
         ],
     },
 )

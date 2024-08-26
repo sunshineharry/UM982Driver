@@ -4,8 +4,10 @@
   <name>um982_driver</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="1544453976@qq.com">orangepi</maintainer>
+  <maintainer email="hankunjiang@outlook.com">root</maintainer>
   <license>TODO: License declaration</license>
+
+  <depend>rclpy</depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

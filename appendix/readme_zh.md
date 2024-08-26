@@ -1,7 +1,7 @@
 # 和芯星通UM982/UM980驱动
 
 - 和芯星通UM982/UM980驱动
-- 支持 `NMEA` 和扩展 `NMEA` 指令集: `PVTSLN`, `KSXT`, `GNHPR`, `BESTNAV`
+- 支持 `NMEA` 和扩展 `NMEA` 指令集: `PVTSLN`, `GNHPR`, `BESTNAV`
 - 目前仅支持ASSIC
 - 完整获取 UM982 定位信息
     - 位置及标准差（UTM坐标 + WGS84坐标）
@@ -22,7 +22,7 @@ pip install um982-driver
 # 使用方法
 
 ## UM982 配置
-需要使能UM982的串口输出`PVTSLN`, `KSXT`, `GNHPR`, `BESTNAV`语句，指令格式为
+需要使能UM982的串口输出`PVTSLN`, `GNHPR`, `BESTNAV`语句，指令格式为
 ```
 <输出语句名称> <输出串口> <输出频率>
 ```
@@ -30,40 +30,54 @@ pip install um982-driver
 ```
 config com2 921600
 PVTSLNA com2 0.05
-KSXT com2 0.05
 GPHPR com2 0.05
 BESTNAVA com2 0.05
 ```
 
 ## 一个简单的例程
+
+[DEMO](demo/simple_demp/demp.py)
+
 ```python
-from um982.assic_driver import UM982Driver
-import serial
+from um982 import UM982Serial
+import time
+import signal
+import sys
+
+def signal_handler(sig, frame):
+    um982_driver.stop()                                  # 多线程清理
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)             # 注册退出函数
 
 if __name__ == "__main__":
-    um982_driver = UM982Driver()                # 实例化驱动对象
-    ser = serial.Serial("/dev/ttyACM0", 921600) # 打开串口
+    um982_driver = UM982Serial("/dev/rtk1", 921600)      # 实例化驱动对象
+    um982_driver.start()                                 # 驱动以多线程方式运行
+
+
     while True:
-        msg = str(ser.read_all(),'utf-8')       # 读取UM982的输出
-        um982_driver.decode(msg)                # 解码
-        # 输出位置相关的信息
-        print(um982_driver.bestpos_lat)         # 维度
-        print(um982_driver.utm_x)               # utm坐标的x（东方向为正）
-        print(um982_driver.bestpos_latstd)      # 维度的标准差，也可以视为utm坐标下x的标准差
-        print(um982_driver.bestpos_lon)         # 经度
-        print(um982_driver.utm_y)               # utm坐标的y（北方向为正）
-        print(um982_driver.bestpos_lonstd)      # 维度的标准差，也可以视为utm坐标下y的标准差
-        print(um982_driver.bestpos_hgt)         # 海拔高度（天方向为正）
-        print(um982_driver.bestpos_hgtstd)      # 海拔高度测量的标准差
-        # 输出速度相关的信息
-        print(um982_driver.vel_east)            # utm坐标下x方向的速度
-        print(um982_driver.vel_east_std)        # utm坐标下x方向的速度的标准差
-        print(um982_driver.vel_north)           # utm坐标下y方向的速度
-        print(um982_driver.vel_north_std)       # utm坐标下y方向的速度的标准差
-        print(um982_driver.vel_up)              # 垂直方向的速度
-        print(um982_driver.vel_up_std)          # 垂直方向速度的标准差
-        # 输出姿态相关的信息
-        print(um982_driver.heading)             # 航向角
-        print(um982_driver.pitch)               # pitch
-        print(um982_driver.roll)                # roll
+        # 获取定位信息：高度(hgt)、纬度(lat)、经度(lon)及其标准差
+        bestpos_hgt, bestpos_lat, bestpos_lon, bestpos_hgtstd, bestpos_latstd, bestpos_lonstd = um982_driver.fix
+        print(f"Height: {bestpos_hgt} meters, Latitude: {bestpos_lat} degrees, Longitude: {bestpos_lon} degrees")
+        print(f"Height Std: {bestpos_hgtstd} meters, Latitude Std: {bestpos_latstd} meters, Longitude Std: {bestpos_lonstd} meters")
+
+        # 获取 UTM 坐标
+        utm_x, utm_y = um982_driver.utmpos
+        print(f"UTM X: {utm_x} meters, UTM Y: {utm_y} meters")
+
+        # 获取速度信息：东向速度、北向速度、垂直速度及其标准差
+        vel_east, vel_north, vel_ver, vel_east_std, vel_north_std, vel_ver_std = um982_driver.vel
+        print(f"Velocity East: {vel_east} m/s, Velocity North: {vel_north} m/s, Velocity Vertical: {vel_ver} m/s")
+        print(f"Velocity East Std: {vel_east_std} m/s, Velocity North Std: {vel_north_std} m/s, Velocity Vertical Std: {vel_ver_std} m/s")
+
+        # 获取姿态信息：航向角(heading)、俯仰角(pitch)、横滚角(roll)
+        heading, pitch, roll = um982_driver.orientation
+        print(f"Heading: {heading} degrees, Pitch: {pitch} degrees, Roll: {roll} degrees")
+        print('')
+
+        time.sleep(0.2)
 ```
+
+## ROS2
+
+对于 `ROS2` 下的功能包, 可以查看另一个 [DEMO](demo/ros2/)
