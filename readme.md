@@ -4,6 +4,8 @@
 - Support NMEA, extended NMEA Instruction Set: `PVTSLN`, `GNHPR`, `BESTNAV`
 - Support ASSIC Instruction Set Only now
 - Get as much location information as possible ( more than stantad NMEA sentence )
+- GPL licence
+- Another C driver (not rigorous tested) in `appendix` folder
 
 # Language
 
