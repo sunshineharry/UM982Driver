@@ -1,6 +1,6 @@
 # Driver for UM982 / UM980
 
-- Driver for UNICORECOMM UM882/UM980 GPS
+- Driver for UNICORECOMM UM982/UM980 GPS
 - Support NMEA, extended NMEA Instruction Set: `PVTSLN`, `GNHPR`, `BESTNAV`
 - Support ASSIC Instruction Set Only now
 - Get as much location information as possible ( more than stantad NMEA sentence )
